@@ -1,7 +1,8 @@
 const path = require('path');
 const express = require('express');
-const app = express();
+const Gun = require('gun');
 
+const app = express();
 const port = (process.env.PORT || 8080);
 
 if (process.env.NODE_ENV !== 'production') {
@@ -21,4 +22,7 @@ if (process.env.NODE_ENV !== 'production') {
   });
 }
 
-app.listen(port);
+app.use(Gun.serve);
+const server = app.listen(port);
+
+Gun({	file: 'db/data.json', web: server });

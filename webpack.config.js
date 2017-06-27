@@ -5,8 +5,11 @@ const HTMLWebpackPlugin = require('html-webpack-plugin');
 
 var src_dir = __dirname + '/src';
 
-var VENDOR_LIBS = ['lodash', 'react', 'prop-types', 'react-dom', 'react-router', 'react-redux', 'redux',
-                   'redux-form', 'redux-promise', 'redux-thunk'];
+var VENDOR_LIBS = ['lodash', 'react', 'prop-types', 'react-dom', 'gun', 'react-bootstrap'];
+
+var production = process.env.NODE_ENV === 'production';
+
+console.log('is production:', production);
 
 webpackConfig = {
   entry: {
@@ -15,7 +18,7 @@ webpackConfig = {
   },
   output: {
     path: path.join(__dirname, 'dist'),
-    filename: '[name].[chunkhash].js'
+    filename: '[name].[hash].js'
   },
   module: {
     rules: [
@@ -23,18 +26,7 @@ webpackConfig = {
         test: /\.js$/,
         use: 'babel-loader',
         exclude: /node_modules/
-      },{
-        test: /\.css$/,
-        use: ExtractTextPlugin.extract({
-          fallback: "style-loader",
-          use: "css-loader"
-        })
-      },
-      {
-        //IMAGE LOADER
-        test: /\.(jpe?g|png|gif|svg)$/i,
-        loader:'file'
-      },
+      }
     ]
   },
   plugins: [
@@ -44,13 +36,23 @@ webpackConfig = {
     new HTMLWebpackPlugin({
       template: 'src/index.html'
     }),
-    new ExtractTextPlugin('style.css'),
     new webpack.DefinePlugin({
       'process.env.': {
         NODE_ENV: JSON.stringify(process.env.NODE_ENV)
       }
-    })
+    }),
+    new webpack.HotModuleReplacementPlugin()
   ]
 };
+
+if(!production) {
+  webpackConfig.devServer = {
+    host: process.env.BIND || '127.0.0.1',
+    port: '8080',
+    headers: { 'Access-Control-Allow-Origin': '*' }
+  };
+  // Source maps
+  webpackConfig.devtool = 'inline-source-map';
+}
 
 module.exports = webpackConfig;

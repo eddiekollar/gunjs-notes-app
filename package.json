@@ -1,24 +1,19 @@
 {
-  "name": "react-boiler",
+  "name": "gunjs-notes-app",
   "version": "0.1.0",
-  "description": "Simple starter package for Redux with React and Babel support",
+  "description": "A notes application using React and GUN.js",
   "main": "src/index.js",
   "repository": "git@github.com:eddiekollar/ReactBoiler.git",
   "private": true,
   "dependencies": {
-    "axios": "^0.16.1",
     "express": "^4.15.2",
+    "gun": "^0.7.9",
     "lodash": "^4.17.4",
+    "oauth2-client-js": "^0.0.15",
     "path": "^0.12.7",
-    "prop-types": "^15.5.6",
-    "react": "^15.5.3",
-    "react-dom": "^15.5.3",
-    "react-redux": "^5.0.4",
-    "react-router": "2.8.1",
-    "redux": "^3.6.0",
-    "redux-form": "^6.6.2",
-    "redux-promise": "^0.5.3",
-    "redux-thunk": "^2.2.0",
+    "react": "^15.6.1",
+    "react-bootstrap": "^0.31.0",
+    "react-dom": "^15.6.1",
     "webpack": "^2.3.3"
   },
   "devDependencies": {
@@ -42,7 +37,8 @@
     "react-hot-loader": "^1.3.1",
     "rimraf": "^2.6.1",
     "style-loader": "^0.16.1",
-    "webpack-dev-server": "^2.4.2"
+    "webpack-dev-server": "^2.4.2",
+    "webpack-hot-middleware": "^2.18.0"
   },
   "scripts": {
     "clean": "rimraf dist",
